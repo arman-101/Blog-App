@@ -1,43 +1,52 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/login');
+      Swal.fire('Registration Complete!', '', 'success');
     } catch (error) {
-      alert(error.message);
+      Swal.fire('Registration Failed!', error.message, 'error');
     }
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center">Register</h2>
-      <div className="mb-3">
-        <input
-          type="email"
-          className="form-control"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="mb-3">
-        <input
-          type="password"
-          className="form-control"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button className="btn btn-primary w-100" onClick={handleRegister}>Register</button>
+      <h2 className="text-center mb-4">Register</h2>
+      <form onSubmit={handleRegister}>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Register</button>
+      </form>
+      <p className="mt-3">Already have an account? <Link to="/login">Login here</Link></p>
     </div>
   );
 }

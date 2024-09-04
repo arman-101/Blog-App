@@ -1,25 +1,22 @@
 import React from 'react';
-import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import { useNavigate } from 'react-router-dom';
-import '../App.css';
+import { signOut } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 function ProfilePage() {
-  const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/');
     } catch (error) {
-      alert(error.message);
+      Swal.fire('Logout Failed!', error.message, 'error');
     }
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center">Profile Page</h2>
-      <button className="btn btn-danger w-100" onClick={handleLogout}>Logout</button>
+      <h2 className="text-center mb-4">Profile Page</h2>
+      <p>Welcome, {auth.currentUser?.email}</p>
+      <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
     </div>
   );
 }

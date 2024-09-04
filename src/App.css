@@ -1,25 +1,27 @@
-.container {
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .container {
     max-width: 800px;
-    margin: auto;
-    padding: 20px;
   }
   
-  .navbar-brand {
-    font-size: 1.5rem;
+  h2 {
+    color: #007bff;
   }
   
-  .navbar {
-    margin-bottom: 20px;
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
   }
   
-  .blog-post {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
   }
   
-  .blog-post h3 {
-    margin-top: 0;
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
   }
   
